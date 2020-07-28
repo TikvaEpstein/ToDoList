@@ -38,7 +38,7 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 2
+        return listOfToDo.count 
     }
 
     
@@ -46,6 +46,8 @@ class TableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
         let eachToDo = listOfToDo[indexPath.row]
+        
+        performSegue(withIdentifier: "moveToCompletedToDoVC", sender: eachToDo)
         
         if eachToDo.important {
             cell.textLabel?.text = "!!" + eachToDo.description
@@ -59,7 +61,13 @@ class TableViewController: UITableViewController {
         return cell
     }
     
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let nextAddToDoVC = segue.destination as?
+            AddToDoViewController {
+            nextAddToDoVC.previousToDoTVC = self
+        }
+    }
     
 
    
